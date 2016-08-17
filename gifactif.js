@@ -43,9 +43,12 @@
 
           // Dropdown and general functionality for gifactif
           dropDown : function (editor, caller, callback) {
+            gifactif.reset();
             gifactif.editor = editor;
             gifactif.callback = callback;
             editor.createDropDown(caller, 'gifactif', gifactif.dropDown);
+
+            $('#gifactif_search', gifactif.dropDown)[0].focus(); // focus the search area
           },
 
 
@@ -79,7 +82,7 @@
           '<style type="text/css">'+
             '.sceditor-button-gifactif div { background-image:url(http://i35.servimg.com/u/f35/18/21/60/73/giphy10.png) !important; }'+
             '.sceditor-button-gifactif:after, .sceditor-button-gifactif:before { content:""; }'+ // Forumactif Edge override
-            '#gifactif_results { width:336px; margin:10px auto; max-height:200px; overflow-x:hidden; overflow-y:auto; }'+
+            '#gifactif_results { width:336px; margin:10px auto; min-height:30px; max-height:200px; overflow-x:hidden; overflow-y:auto; }'+
             '#gifactif_results img { vertical-align:top; margin:3px; cursor:pointer; }'+
             'html #giphy_attribution_mark { background:url(http://i35.servimg.com/u/f35/18/21/60/73/powere11.png) no-repeat 50% 50% transparent !important; height:22px !important; width:100%; !important; min-width:200px !important; display:block !important; visibility:visible !important; opacity:1 !important; }'+
           '</style>'
@@ -99,7 +102,7 @@
 
         // set a small timeout in case the user is still typing
         gifactif.timeout = window.setTimeout(function() {
-          $('#gifactif_results', gifactif.dropDown).html('Searching...');
+          gifactif.reset(true, 'Searching...');
           gifactif.query = encodeURIComponent(query);
 
           gifactif.request = $.get('http://api.giphy.com/v1/gifs/search?q=' + gifactif.query + '&limit=' + gifactif.limit + '&rating=pg-13&api_key=' + gifactif.key, function(data) {
@@ -108,14 +111,14 @@
             gifactif.offset = data.pagination.offset + gifactif.limit;
             gifactif.offset_total = data.pagination.total_count;
 
-            $('#gifactif_results', gifactif.dropDown).html(''); // reset HTML content
+            gifactif.reset(true); // reset HTML content
             gifactif.addGIF(data); // send data to be parsed
           });
 
         }, gifactif.delay);
 
       } else {
-        $('#gifactif_results', gifactif.dropDown).html('');
+        gifactif.reset(true);
       }
     },
 
@@ -135,15 +138,19 @@
 
 
     // add gifs to the result list
-    addGIF : function (data) {
+    addGIF : function (data, loadMore) {
       // setup data and begin parsing results
       var gif = data.data,
           i = 0,
           j = gif.length,
           frag = document.createDocumentFragment();
 
-      for (; i < j; i++) {
-        frag.appendChild($('<img id="' + gif[i].id + '" src="' + gif[i].images.fixed_width_small.url + '" />').click(gifactif.insert)[0]);
+      if (j) {
+        for (; i < j; i++) {
+          frag.appendChild($('<img id="' + gif[i].id + '" src="' + gif[i].images.fixed_width_small.url + '" />').click(gifactif.insert)[0]);
+        }
+      } else if (!loadMore) {
+        gifactif.reset(true, 'No results found.. <img src="http://illiweb.com/fa/i/smiles/icon_sad.gif" style="margin:0;vertical-align:middle;"/>');
       }
 
       // add results to the result list
@@ -167,7 +174,7 @@
           gifactif.offset = data.pagination.offset + gifactif.limit;
           gifactif.offset_total = data.pagination.total_count;
 
-          gifactif.addGIF(data); // send data to be parsed
+          gifactif.addGIF(data, true); // send data to be parsed
         });
       }
     },
@@ -178,10 +185,17 @@
       // add the gif to the editor and close the dropdown
       gifactif.callback('http://media0.giphy.com/media/' + this.id + '/giphy.gif');
       gifactif.editor.closeDropDown(true);
+      gifactif.reset();
+    },
 
-      // reset dropdown fields
-      $('#gifactif_results', gifactif.dropDown).html('');
-      $('#gifactif_search', gifactif.dropDown).val('');
+
+    // reset the dropdown fields
+    reset : function (resultsOnly, newContent) {
+      $('#gifactif_results', gifactif.dropDown).html(newContent ? newContent : '');
+
+      if (!resultsOnly) {
+        $('#gifactif_search', gifactif.dropDown).val('');
+      }
     }
   };
 
