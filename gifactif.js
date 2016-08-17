@@ -19,7 +19,7 @@
   window.gifactif = {
     key : 'dc6zaTOxFJmzC', // PUBLIC BETA KEY
     limit : 27, // max image results
-    delay : 100, // delay before searches commence (100ms)
+    delay : 200, // delay before searches commence (200ms)
 
 
     // dropdown markup
