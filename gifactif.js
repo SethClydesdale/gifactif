@@ -18,7 +18,7 @@
   // setup global object
   window.gifactif = {
     key : 'dc6zaTOxFJmzC', // PUBLIC BETA KEY
-    limit : 27, // max image results
+    limit : 26, // max image results
     delay : 200, // delay before searches commence (200ms)
 
 
@@ -26,7 +26,7 @@
     dropDown : $(
       '<div>'+
         '<input type="text" id="gifactif_search" placeholder="Search for a GIF..." style="width:90%;" onkeyup="gifactif.search(this.value);"/>'+
-        '<div id="gifactif_results" onscroll="gifactif.scrolling(this);"></div>'+
+        '<div id="gifactif_results" onscroll="gifactif.scrolling(this);"><div id="gifactif_images"></div></div>'+
         '<div id="giphy_attribution_mark"></div>'+
       '</div>'
     )[0],
@@ -39,7 +39,7 @@
         // set the gifactif command
         $.sceditor.command.set('gifactif', {
 
-          tooltip : 'Insert a GIF',
+          tooltip : 'Find a GIF',
 
           // Dropdown and general functionality for gifactif
           dropDown : function (editor, caller, callback) {
@@ -82,8 +82,9 @@
           '<style type="text/css">'+
             '.sceditor-button-gifactif div { background-image:url(http://i35.servimg.com/u/f35/18/21/60/73/giphy10.png) !important; }'+
             '.sceditor-button-gifactif:after, .sceditor-button-gifactif:before { content:""; }'+ // Forumactif Edge override
-            '#gifactif_results { width:336px; margin:10px auto; min-height:30px; max-height:200px; overflow-x:hidden; overflow-y:auto; }'+
-            '#gifactif_results img { vertical-align:top; margin:3px; cursor:pointer; }'+
+            '#gifactif_results { width:300px; margin:10px auto; min-height:30px; max-height:300px; overflow-x:hidden; overflow-y:auto; }'+
+            '.gifactif_imagelist { line-height:0; column-count:2; column-gap:0px; }'+
+            '.gifactif_imagelist img { margin:3px; cursor:pointer; width:100%; }'+
             'html #giphy_attribution_mark { background:url(http://i35.servimg.com/u/f35/18/21/60/73/powere11.png) no-repeat 50% 50% transparent !important; height:22px !important; width:100%; !important; min-width:200px !important; display:block !important; visibility:visible !important; opacity:1 !important; }'+
           '</style>'
         );
@@ -143,18 +144,18 @@
       var gif = data.data,
           i = 0,
           j = gif.length,
-          frag = document.createDocumentFragment();
+          list = $('<div class="gifactif_imagelist" />')[0];
 
       if (j) {
         for (; i < j; i++) {
-          frag.appendChild($('<img id="' + gif[i].id + '" src="' + gif[i].images.fixed_width_small.url + '" />').click(gifactif.insert)[0]);
+          list.appendChild($('<img id="' + gif[i].id + '" src="' + gif[i].images.fixed_width.url + '" />').click(gifactif.insert)[0]);
         }
       } else if (!loadMore) {
         gifactif.reset(true, 'No results found.. <img src="http://illiweb.com/fa/i/smiles/icon_sad.gif" style="margin:0;vertical-align:middle;"/>');
       }
 
       // add results to the result list
-      $('#gifactif_results', gifactif.dropDown).append(frag);
+      $('#gifactif_results', gifactif.dropDown).append(list);
     },
 
 
