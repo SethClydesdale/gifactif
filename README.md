@@ -1,6 +1,6 @@
 # What is GIFActif ?
 
-GIFActif is a [Giphy](http://giphy.com/) search plugin for the free forum service, [Forumotion](http://www.forumotion.com/) aka [Forumactif](http://www.forumactif.com/). GIFActif adds a new button to the message editor which allows your members to attach GIFs to their messages, thus making the experience more engaging and fun !
+GIFActif is a [Giphy](http://giphy.com/) search plugin for the free forum service, [Forumotion](http://www.forumotion.com/) aka [Forumactif](http://www.forumactif.com/). GIFActif adds a new button to the message editor which allows your members to attach GIFs to their messages. Thus giving your members the power to express themselves with GIFs, and making messaging on the forum more engaging and fun !
 
 ![preview](http://i.imgur.com/2DO0i76.gif)
 
