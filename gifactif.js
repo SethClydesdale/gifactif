@@ -83,8 +83,8 @@
             '.sceditor-button-gifactif div { background-image:url(http://i35.servimg.com/u/f35/18/21/60/73/giphy10.png) !important; }'+
             '.sceditor-button-gifactif:after, .sceditor-button-gifactif:before { content:""; }'+ // Forumactif Edge override
             '#gifactif_results { width:300px; margin:10px auto; min-height:30px; max-height:300px; overflow-x:hidden; overflow-y:auto; }'+
-            '.gifactif_imagelist { line-height:0; column-count:2; column-gap:0px; }'+
-            '.gifactif_imagelist img { margin:3px; cursor:pointer; width:100%; }'+
+            '.gifactif_imagelist { line-height:0; column-count:2; column-gap:3px; }'+
+            '.gifactif_imagelist img { margin-bottom:3px; cursor:pointer; width:100%; }'+
             'html #giphy_attribution_mark { background:url(http://i35.servimg.com/u/f35/18/21/60/73/powere11.png) no-repeat 50% 50% transparent !important; height:22px !important; width:100%; !important; min-width:200px !important; display:block !important; visibility:visible !important; opacity:1 !important; }'+
           '</style>'
         );
