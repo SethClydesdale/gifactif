@@ -4,7 +4,7 @@ jQuery(function() {
   'use strict';
 
   // Giphy image in post
-  var $giphyImg = $('.post-entry img[src*=".giphy.com/media/"][src$="giphy.gif"]');
+  var $giphyImg = $('.postbody, .post-entry').find('img[src*=".giphy.com/media/"][src$="giphy.gif"]');
 
   if (!$giphyImg.length) return;
 
