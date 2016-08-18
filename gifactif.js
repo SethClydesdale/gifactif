@@ -1,10 +1,9 @@
-/**********************************************
-** GIFACTIF
-** GIPHY PLUGIN FOR THE FORUMACTIF SCEDITOR
-** DEVELOPED BY SETH CLYDESDALE
-** API BY https://github.com/Giphy/GiphyAPI
-**********************************************/
 (function() {
+  'GIFACTIF - GIPHY PLUGIN FOR THE FORUMACTIF SCEDITOR';
+  'DEVELOPED BY ANGE TUTEUR';
+  'API BY https://github.com/Giphy/GiphyAPI';
+  'ORIGIN : https://github.com/SethClydesdale/gifactif';
+
 
   // return if gifactif has been initialized
   if (window.gifactif) {
@@ -21,6 +20,11 @@
     limit : 26, // max image results
     delay : 200, // delay before searches commence (200ms)
 
+    // general language settings
+    lang : {
+      searching : 'Searching...',
+      not_found : 'No results found.. <img src="http://illiweb.com/fa/i/smiles/icon_sad.gif" style="margin:0;vertical-align:middle;"/>'
+    },
 
     // dropdown markup
     dropDown : $(
@@ -103,7 +107,7 @@
 
         // set a small timeout in case the user is still typing
         gifactif.timeout = window.setTimeout(function() {
-          gifactif.reset(true, 'Searching...');
+          gifactif.reset(true, gifactif.lang.searching);
           gifactif.query = encodeURIComponent(query);
 
           gifactif.request = $.get('http://api.giphy.com/v1/gifs/search?q=' + gifactif.query + '&limit=' + gifactif.limit + '&rating=pg-13&api_key=' + gifactif.key, function(data) {
@@ -151,7 +155,7 @@
           list.appendChild($('<img id="' + gif[i].id + '" src="' + gif[i].images.fixed_width.url + '" />').click(gifactif.insert)[0]);
         }
       } else if (!loadMore) {
-        gifactif.reset(true, 'No results found.. <img src="http://illiweb.com/fa/i/smiles/icon_sad.gif" style="margin:0;vertical-align:middle;"/>');
+        gifactif.reset(true, gifactif.lang.not_found);
       }
 
       // add results to the result list
