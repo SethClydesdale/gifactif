@@ -1,8 +1,7 @@
 (function() {
   'GIFACTIF - GIPHY PLUGIN FOR THE FORUMACTIF SCEDITOR';
-  'DEVELOPED BY ANGE TUTEUR';
-  'API BY https://github.com/Giphy/GiphyAPI';
-  'ORIGIN : https://github.com/SethClydesdale/gifactif';
+  'REPOSITORY : https://github.com/SethClydesdale/gifactif';
+  'SEARCH API BY : https://github.com/Giphy/GiphyAPI';
 
 
   // return if gifactif has been initialized
@@ -206,7 +205,7 @@
 
 
   // bind keyup event to search input
-  $('#gifactif_search', gifactif.dropDown).on('keyup', function(e) {
+  $('#gifactif_search', gifactif.dropDown)[0].onkeyup = function(e) {
     var k = e.keyCode;
 
     // ignore specific key inputs to prevent unnecessary requests
@@ -215,8 +214,7 @@
     } else {
       gifactif.search(this.value);
     }
-  });
-
+  };
 
   // initilize gifactif
   $(gifactif.init);
