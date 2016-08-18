@@ -29,7 +29,7 @@
     // dropdown markup
     dropDown : $(
       '<div>'+
-        '<input type="text" id="gifactif_search" placeholder="Search for a GIF..." style="width:90%;" onkeyup="gifactif.search(this.value);"/>'+
+        '<input type="text" id="gifactif_search" placeholder="Search for a GIF..." style="width:90%;"/>'+
         '<div id="gifactif_results" onscroll="gifactif.scrolling(this);"><div id="gifactif_images"></div></div>'+
         '<div id="giphy_attribution_mark"></div>'+
       '</div>'
@@ -203,6 +203,20 @@
       }
     }
   };
+
+
+  // bind keyup event to search input
+  $('#gifactif_search', gifactif.dropDown).on('keyup', function(e) {
+    var k = e.keyCode;
+
+    // ignore specific key inputs to prevent unnecessary requests
+    if (k && (k == 16 || k == 17 || k == 18 || k == 20 || k == 37 || k == 38 || k == 39 || k == 40)) {
+      return;
+    } else {
+      gifactif.search(this.value);
+    }
+  });
+
 
   // initilize gifactif
   $(gifactif.init);
