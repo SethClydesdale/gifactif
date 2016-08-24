@@ -18,6 +18,7 @@
     key : 'dc6zaTOxFJmzC', // PUBLIC BETA KEY
     limit : 26, // max image results
     delay : 200, // delay before searches commence (200ms)
+    auto_close : true,
 
     // general language settings
     lang : {
@@ -188,8 +189,11 @@
     insert : function () {
       // add the gif to the editor and close the dropdown
       gifactif.callback('http://media0.giphy.com/media/' + this.id + '/giphy.gif');
-      gifactif.editor.closeDropDown(true);
-      gifactif.reset();
+
+      if (gifactif.auto_close) {
+        gifactif.editor.closeDropDown(true);
+        gifactif.reset();
+      }
     },
 
 
