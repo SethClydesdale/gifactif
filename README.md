@@ -19,7 +19,7 @@ GIFActif uses the [Giphy Search API](https://github.com/Giphy/GiphyAPI#search-en
 
 ## How to Install GIFActif on Forumotion
 
-To install this plugin on your Forumotion forum, navigate to Admin Panel > Modules > JavaScript codes management, and create a new script with the following settings.
+[Click here](http://fmdesign.forumotion.com/t994-gifactif-giphy-button-for-the-editor#20290) if you'd like to follow the install on the development forum, OTHERWISE, navigate to Admin Panel > Modules > JavaScript codes management, and create a new script with the following settings.
 
 1. **Title :** GIFActif
 2. **Placement :** In all the pages
